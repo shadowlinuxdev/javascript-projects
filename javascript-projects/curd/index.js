@@ -17,4 +17,16 @@ app.get('/employees',(req,res)=>{
         }
     });
 })
+/*Fetching data with id*/
+app.get('/employees/:id',(req,res)=>{
+    connection.query(
+        'SELECT * FROM javascript.employee WHERE emp_id=?',[req.params.id],(err,rows)=>{
+            if(err){
+                res.send(err);
+            }else{
+                res.send(rows);
+            }
+        }
+    )
+})
 app.listen(3000,()=>console.log('express is running on port 3000'));
