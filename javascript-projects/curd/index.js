@@ -1,6 +1,7 @@
 const connection = require('./connection');
 const express = require('express');
 const bodyParser = require('body-parser');
+const { connect } = require('./connection');
 var app = express();
 
 app.use(bodyParser.json())
@@ -28,5 +29,16 @@ app.get('/employees/:id',(req,res)=>{
             }
         }
     )
+})
+
+/*Delete data with id*/
+app.delete('/employees/:id',(req,res)=>{
+    connection.query('DELETE FROM javascript.employee WHERE emp_id=?',[req.params.id],(err,rows)=>{
+        if(err){
+            res.send(err);
+        }else{
+            res.send(rows);
+        }
+    })
 })
 app.listen(3000,()=>console.log('express is running on port 3000'));
